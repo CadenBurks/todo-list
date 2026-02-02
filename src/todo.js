@@ -16,7 +16,7 @@ function createLogger() {
 
 const Logger = createLogger();
 
-function createTodo(todoTitle, todoDesc, dueDate, todoPrior) {
+export function createTodo(todoTitle, todoDesc, dueDate, todoPrior) {
     let _title = todoTitle;
     let _desc = todoDesc;
     let _due = dueDate;
@@ -48,7 +48,7 @@ function createTodo(todoTitle, todoDesc, dueDate, todoPrior) {
     return { id, dateCreated, updateTitle, getTitle, updateDesc, getDesc, updateDueDate, getDueDate, updatePriority, getPriority, toggle, isComplete };
 }
 
-class TodoList {
+export class TodoList {
     constructor(name){
         this.name = name;
         this.todos = [];
@@ -115,15 +115,3 @@ class TodoList {
         Logger.log(this.todos.map(todo => `${todo.getTitle()} [${todo.getPriority()}]`).join(" | "));
     }
 }
-
-const myList = new TodoList("Main");
-const chores = new TodoList("Chores");
-
-let todo1 = createTodo("Call landlord", "Washer is broken", new Date(2025, 1, 1), 3);
-let todo2 = createTodo("Laundry", "Go to laundromat", new Date(2025, 1, 2), 2);
-let todo3 = createTodo("Dishes", "Do the dishes", new Date(2024, 12, 2), 1);
-
-myList.addToList(todo1);
-myList.addToList(todo2);
-myList.addToList(todo3);
-myList.print();
