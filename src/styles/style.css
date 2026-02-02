@@ -1,3 +1,103 @@
-body {
-    background-color: grey;
+/* Layout */
+body, html {
+    margin: 0;
+    font-family: sans-serif;
+    height: 100%;
+}
+
+.layout {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    min-height: 100vh;
+}
+
+/* Sidebar Grid */
+.sidebar {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    background: #1f2937;
+    color: white;
+    padding: 1rem;
+}
+
+/* Sidebar Content */
+.sidebar-content {
+    overflow-y: auto;
+}
+
+.sidebar-content a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 0;
+}
+
+.sidebar-content a:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+/* Remove bullets from all lists in sidebar */
+.sidebar-content ul {
+    list-style: none;   /* Remove bullets */
+    padding-left: 0;    /* Remove default indent */
+    margin: 0;          /* Optional: remove extra spacing */
+}
+
+/* Optional: nested dropdown menu spacing */
+.sidebar-content .dropdown-menu {
+    padding-left: 1rem; /* keep indentation for hierarchy */
+}
+
+/* Dropdown */
+.dropdown-menu {
+    display: none;
+    padding-left: 1rem;
+    list-style: none;
+}
+
+.dropdown.open .dropdown-menu {
+    display: block;
+}
+
+/* Optional smooth animation */
+.dropdown-menu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.dropdown.open .dropdown-menu {
+    max-height: 500px;
+}
+
+/* Sidebar Footer */
+.sidebar-footer {
+    border-top: 1px solid rgba(255,255,255,0.2);
+    padding-top: 1rem;
+}
+
+.sidebar-footer button {
+    width: 100%;
+    padding: 0.5rem;
+    background: #2563eb;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 0.25rem;
+}
+
+.sidebar-footer button:hover {
+    background: #1d4ed8;
+}
+
+/* Main Content */
+.content {
+    padding: 2rem;
+    background: #f3f4f6;
+}
+
+.dropdown-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

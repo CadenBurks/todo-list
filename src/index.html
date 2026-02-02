@@ -6,6 +6,32 @@
     <title>Todo App</title>
 </head>
 <body>
-    Hello World!
+    <div class="layout">
+        <aside class="sidebar">
+            <nav class="sidebar-content">
+                <ul id="todo-lists">
+                <li class="dropdown">
+                    <div class="dropdown-header">
+                        <a href="#" class="dropdown-toggle">List ▾</a>
+                        <button class="add-item">Add Item</button>
+                    </div>
+                    <ul class="dropdown-menu">
+                    <li><a href="#">Item A</a></li>
+                    <li><a href="#">Item B</a></li>
+                    </ul>
+                </li>
+                </ul>
+            </nav>
+
+            <footer class="sidebar-footer">
+                <button id="add-list">Add List</button>
+            </footer>
+        </aside>
+        <main class="content">
+            <h1>Main Content</h1>
+            <p>Content here.</p>
+        </main>
+    </div>
+
 </body>
 </html>
