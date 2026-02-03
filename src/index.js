@@ -3,52 +3,49 @@ import { createTodo, TodoList } from "./todo.js";
 
 
 const todoListsMap = new Map();
+let currentList = null;
 
 const addList = document.querySelector("#add-list");
 const sideContent = document.querySelector(".sidebar-content");
 const todoLists = document.querySelector("#todo-lists");
-
-// Dropdown toggling
-sideContent.addEventListener("click", (event) => {
-  const toggle = event.target.closest(".dropdown-toggle");
-  if (!toggle) return;
-
-  event.preventDefault();
-  const dropdown = toggle.closest(".dropdown");
-  dropdown.classList.toggle("open");
-});
+const dialog = document.querySelector(".new-item-form");
+const form = document.querySelector(".todo-item-form");
 
 // Adding new list to page
 addList.addEventListener("click", () => {
     const listName = prompt("Name of the new list: ");
     if (!listName) { return };
     
-    const dropdown = document.createElement("li");
-    dropdown.classList.add("dropdown");
+    const list = document.createElement("li");
+    list.classList.add("todo-list");
 
-    const dropHeader = document.createElement("div");
-    dropHeader.classList.add("dropdown-header");
+    const todoHeader = document.createElement("div");
+    todoHeader.classList.add("todo-header");
 
     const addItemBtn = document.createElement("button");
     addItemBtn.classList.add("add-item");
-    addItemBtn.textContent = "Add Item";
+    addItemBtn.textContent = "╋";
 
-    const dropToggle = document.createElement("a");
-    dropToggle.href = "#";
-    dropToggle.classList.add("dropdown-toggle");
-    dropToggle.textContent = `${listName} ▾`;
+    const sortBtn = document.createElement("button");
+    sortBtn.classList.add("sort");
+    sortBtn.textContent = "☰";
 
-    const dropMenu = document.createElement("ul");
-    dropMenu.classList.add("dropdown-menu");
+    const listTitle = document.createElement("a");
+    listTitle.href = "#";
+    listTitle.textContent = listName;
 
-    dropHeader.appendChild(dropToggle);
-    dropHeader.appendChild(addItemBtn);
-    dropdown.appendChild(dropHeader);
-    dropdown.appendChild(dropMenu);
-    todoLists.appendChild(dropdown);
+    const todoMenu = document.createElement("ul");
+    todoMenu.classList.add("todo-menu");
+
+    todoHeader.appendChild(listTitle);
+    todoHeader.appendChild(addItemBtn);
+    todoHeader.appendChild(sortBtn);
+    list.appendChild(todoHeader);
+    list.appendChild(todoMenu);
+    todoLists.appendChild(list);
 
     const todoList = new TodoList(listName);
-    todoListsMap.set(dropdown, todoList);
+    todoListsMap.set(list, todoList);
 });
 
 // Adding new todo item to a list
@@ -56,18 +53,64 @@ sideContent.addEventListener("click", (event) => {
     const button = event.target.closest(".add-item");
     if (!button) { return };
 
-    const itemName = prompt("Title of the new item: ");
-    if (!itemName) { return };
-
-    const dropdown = button.closest(".dropdown");
-    const currList = todoListsMap.get(dropdown);
-    currList.print();
-    
-    const dropMenu = dropdown.querySelector(".dropdown-menu");
-    const li = document.createElement("li");
-    const newItem = document.createElement("a");
-    newItem.href="#";
-    newItem.textContent = itemName;
-    li.appendChild(newItem);
-    dropMenu.appendChild(li);
+    currentList = button.closest(".todo-list");
+    dialog.showModal();
 });
+
+// Sorting a todo list
+sideContent.addEventListener("click", (event) => {
+    const button = event.target.closest(".sort");
+    if (!button) { return };
+
+    const list = button.closest(".todo-list");
+    const todoList = todoListsMap.get(list);
+    
+    todoList.sortByPriority();
+
+    renderList(todoList, list.querySelector(".todo-menu"));
+});
+
+// Form for a todo item
+form.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    if (!currentList) { return };
+    
+    const formData = new FormData(form);
+
+    const title = formData.get("todoTitle");
+    const desc = formData.get("todoDesc");
+    const due = formData.get("todoDue");
+    const priority = formData.get("prior");
+
+    const menu = currentList.querySelector(".todo-menu");
+    const li = document.createElement("li");
+    const a = document.createElement("a");
+    a.href = "#";
+    a.textContent = title;
+
+    li.appendChild(a);
+    menu.appendChild(li);
+
+    const list = todoListsMap.get(currentList);
+    list.addToList(createTodo(title, desc, due, priority));
+
+    form.reset();
+    dialog.close();
+    currentList = null;
+});
+
+function renderList(todoList, ul) {
+    ul.innerHTML = "";
+
+    todoList.todos.forEach(todo => {
+        const li = document.createElement("li");
+        const a = document.createElement("a");
+
+        a.href = "#";
+        a.textContent = `${todo.getTitle()}`;
+
+        li.appendChild(a);
+        ul.appendChild(li);
+    });
+}

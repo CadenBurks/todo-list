@@ -1,4 +1,3 @@
-/* Layout */
 body, html {
     margin: 0;
     font-family: sans-serif;
@@ -11,7 +10,6 @@ body, html {
     min-height: 100vh;
 }
 
-/* Sidebar Grid */
 .sidebar {
     display: grid;
     grid-template-rows: 1fr auto;
@@ -20,7 +18,6 @@ body, html {
     padding: 1rem;
 }
 
-/* Sidebar Content */
 .sidebar-content {
     overflow-y: auto;
 }
@@ -36,41 +33,32 @@ body, html {
     background: rgba(255,255,255,0.1);
 }
 
-/* Remove bullets from all lists in sidebar */
 .sidebar-content ul {
-    list-style: none;   /* Remove bullets */
-    padding-left: 0;    /* Remove default indent */
-    margin: 0;          /* Optional: remove extra spacing */
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
 }
 
-/* Optional: nested dropdown menu spacing */
-.sidebar-content .dropdown-menu {
-    padding-left: 1rem; /* keep indentation for hierarchy */
+.sidebar-content .todo-menu {
+    padding-left: 1rem;
 }
 
-/* Dropdown */
-.dropdown-menu {
-    display: none;
+.todo-menu {
     padding-left: 1rem;
     list-style: none;
 }
 
-.dropdown.open .dropdown-menu {
+.todo-list .todo-menu {
     display: block;
+    max-height: 500px;
 }
 
-/* Optional smooth animation */
-.dropdown-menu {
+.todo-menu {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.3s ease;
 }
 
-.dropdown.open .dropdown-menu {
-    max-height: 500px;
-}
-
-/* Sidebar Footer */
 .sidebar-footer {
     border-top: 1px solid rgba(255,255,255,0.2);
     padding-top: 1rem;
@@ -90,13 +78,12 @@ body, html {
     background: #1d4ed8;
 }
 
-/* Main Content */
 .content {
     padding: 2rem;
     background: #f3f4f6;
 }
 
-.dropdown-header {
+.todo-header {
   display: flex;
   justify-content: space-between;
   align-items: center;

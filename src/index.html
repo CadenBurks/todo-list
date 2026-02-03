@@ -10,12 +10,13 @@
         <aside class="sidebar">
             <nav class="sidebar-content">
                 <ul id="todo-lists">
-                <li class="dropdown">
-                    <div class="dropdown-header">
-                        <a href="#" class="dropdown-toggle">List ▾</a>
-                        <button class="add-item">Add Item</button>
+                <li class="todo-list">
+                    <div class="todo-header">
+                        <a href="#">Default List</a>
+                        <button class="add-item">╋</button>
+                        <button class="sort">☰</button>
                     </div>
-                    <ul class="dropdown-menu">
+                    <ul class="todo-menu">
                     <li><a href="#">Item A</a></li>
                     <li><a href="#">Item B</a></li>
                     </ul>
@@ -30,6 +31,28 @@
         <main class="content">
             <h1>Main Content</h1>
             <p>Content here.</p>
+            <dialog class="new-item-form">
+                <form action="" class="todo-item-form" method="dialog">
+                    <div class="options">
+                        <label for="title">Title</label>
+                        <input type="text" id="title" name="todoTitle" required>
+
+                        <label for="desc">Description</label>
+                        <input type="text" id="desc" name="todoDesc" required>
+
+                        <label for="due">Due Date</label>
+                        <input type="date" id="due" name="todoDue" required>
+
+                        <label for="priority">Priority</label>
+                        <select name="prior" id="priority">
+                            <option value=1>Low</option>
+                            <option value=2>Medium</option>
+                            <option value=3>High</option>
+                        </select>
+                    </div>
+                    <button class="submit">Add</button>
+                </form>
+            </dialog>
         </main>
     </div>
 
