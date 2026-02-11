@@ -97,6 +97,15 @@ body, html {
     list-style: none;
 }
 
+.priority-color {
+    border-left: 5px solid transparent;
+    border-radius: 4px;
+}
+
+.priority-color a {
+    padding-left: 10px;
+}
+
 .sidebar-footer {
     border-top: 1px solid rgba(255,255,255,0.2);
     padding-top: 1rem;

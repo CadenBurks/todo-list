@@ -1,6 +1,9 @@
 import { TodoList } from "./todo.js";
 
 const options = {priority: "Priority", title: "Title", due: "Due Date", created: "Created"};
+const priorityBorders = ["green", "yellow", "red"];
+const priorityBackgrounds = ["rgba(46, 204, 113, 0.2)", "rgba(230, 126, 34, 0.2)", "rgba(231, 76, 60, 0.2)"];
+
 export function addListToPage(todoLists, todoListsMap, defaultList="", defaultItems = []){
     let listName = "";
     if (defaultList) {
@@ -78,8 +81,11 @@ export function renderList(todoList, ul) {
 
     todoList.todos.forEach(todo => {
         const li = document.createElement("li");
+        li.classList.add("priority-color");
+        li.style.borderLeftColor = priorityBorders[todo.getPriority() - 1];
+        li.style.backgroundColor = priorityBackgrounds[todo.getPriority() - 1];
+        
         const a = document.createElement("a");
-
         a.href = "#";
         a.textContent = `${todo.getTitle()}`;
 
