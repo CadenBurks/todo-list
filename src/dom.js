@@ -1,4 +1,5 @@
 import { TodoList } from "./todo.js";
+import { format } from "date-fns";
 
 const options = {priority: "Priority", title: "Title", due: "Due Date", created: "Created"};
 const priorityBorders = ["green", "yellow", "red"];
@@ -89,7 +90,12 @@ export function renderList(todoList, ul) {
         a.href = "#";
         a.textContent = `${todo.getTitle()}`;
 
+        const date = document.createElement("div");
+        date.classList.add("todo-date");
+        date.textContent = `${format(todo.getDueDate(), "EEE/MMM/yyyy")}`;
+
         li.appendChild(a);
+        li.appendChild(date);
         ul.appendChild(li);
     });
 }
