@@ -19,7 +19,7 @@ const Logger = createLogger();
 export function createTodo(todoTitle, todoDesc, dueDate, todoPrior) {
     let _title = todoTitle;
     let _desc = todoDesc;
-    let _due = dueDate;
+    let _due = dueDate instanceof Date ? dueDate : dueDate ? new Date(dueDate + "T00:00") : null;
     let _priority = todoPrior;
     const id = crypto.randomUUID();
     const dateCreated = new Date();
@@ -33,7 +33,7 @@ export function createTodo(todoTitle, todoDesc, dueDate, todoPrior) {
 
     function getDesc() { return _desc; }
 
-    function updateDueDate(newDate) { _due = newDate; }
+    function updateDueDate(newDate) { _due = newDate instanceof Date ? newDate : newDate ? new Date(newDate + "T00:00") : null; }
 
     function getDueDate() { return _due; }
 
@@ -86,22 +86,30 @@ export class TodoList {
     }
 
     sortByTitle() {
-        this.todos.sort((a, b) => a.getTitle() > b.getTitle() ? 1 : -1);
+        this.todos.sort((a, b) => a.getTitle().localeCompare(b.getTitle()));
         Logger.log(this.todos.map(todo => `${todo.getTitle()} [${todo.getPriority()}]`).join(" | "));
     }
 
     sortByTitleReverse() {
-        this.todos.sort((a, b) => b.getTitle() > a.getTitle() ? 1 : -1);
+        this.todos.sort((a, b) => b.getTitle().localeCompare(a.getTitle()));
         Logger.log(this.todos.map(todo => `${todo.getTitle()} [${todo.getPriority()}]`).join(" | "));
     }
 
     sortByDueDate() {
-        this.todos.sort((a, b) => a.getDueDate() - b.getDueDate());
+        this.todos.sort((a, b) => {
+        if (!a.getDueDate()) return 1;
+        if (!b.getDueDate()) return -1;
+        return a.getDueDate() - b.getDueDate();
+        });
         Logger.log(this.todos.map(todo => `${todo.getTitle()} [${todo.getPriority()}]`).join(" | "));
     }
 
     sortByDueDateReverse() {
-        this.todos.sort((a, b) => b.getDueDate() - a.getDueDate());
+        this.todos.sort((a, b) => {
+        if (!b.getDueDate()) return 1;
+        if (!a.getDueDate()) return -1;
+        return b.getDueDate() - a.getDueDate();
+        });
         Logger.log(this.todos.map(todo => `${todo.getTitle()} [${todo.getPriority()}]`).join(" | "));
     }
 

@@ -43,9 +43,45 @@ body, html {
     padding-left: 1rem;
 }
 
-.todo-menu {
-    padding-left: 1rem;
-    list-style: none;
+.filter-section {
+  position: relative;
+}
+
+.filter-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: #1f2937;
+  border: 1px solid #374151;
+  border-radius: 0.5rem;
+  list-style: none;
+  padding: 0.25rem 0;
+  min-width: 160px;
+
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(4px);
+  transition: opacity 120ms ease, transform 120ms ease;
+}
+
+.filter-menu li button {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  background: none;
+  border: none;
+  color: white;
+  text-align: left;
+  cursor: pointer;
+}
+
+.filter-menu li button:hover {
+  background: #374151;
+}
+
+.filter-section.open .filter-menu {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
 }
 
 .todo-list .todo-menu {
@@ -57,6 +93,8 @@ body, html {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.3s ease;
+    padding-left: 1rem;
+    list-style: none;
 }
 
 .sidebar-footer {
